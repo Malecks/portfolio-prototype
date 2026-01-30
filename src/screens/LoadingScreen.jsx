@@ -1,12 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useApp } from '../context/AppContext'
 
 const messages = [
   'Analyzing your answers...',
   'Finding the right portfolio...',
-  'Optimizing asset allocation...',
-  'Calculating expected returns...',
-  'Finalizing your recommendation...',
 ]
 
 export function LoadingScreen() {
@@ -14,9 +11,10 @@ export function LoadingScreen() {
   const [progress, setProgress] = useState(0)
   const [messageIndex, setMessageIndex] = useState(0)
   const [messageFade, setMessageFade] = useState(true)
+  const lastMessageIndex = useRef(0)
 
   const targetValue = currentPortfolio.balance
-  const duration = 4000 // 4 seconds
+  const duration = 3000 // 3 seconds
 
   useEffect(() => {
     const startTime = Date.now()
@@ -32,7 +30,8 @@ export function LoadingScreen() {
         Math.floor(elapsed / messageInterval),
         messages.length - 1
       )
-      if (newMessageIndex !== messageIndex) {
+      if (newMessageIndex !== lastMessageIndex.current) {
+        lastMessageIndex.current = newMessageIndex
         setMessageFade(false)
         setTimeout(() => {
           setMessageIndex(newMessageIndex)
@@ -48,7 +47,7 @@ export function LoadingScreen() {
     }, 16) // ~60fps
 
     return () => clearInterval(progressInterval)
-  }, [duration, setScreen, messageIndex])
+  }, [])
 
   // Eased progress for smoother animation
   const easedProgress = 1 - Math.pow(1 - progress, 3) // ease-out cubic
@@ -98,8 +97,8 @@ export function LoadingScreen() {
 
         {/* Currency value */}
         <p
-          className="text-[28px] font-bold tracking-[-0.02em] text-center tabular-nums"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          className="text-[15px] font-semibold text-center tabular-nums"
+          style={{ color: 'var(--color-ink-muted)' }}
         >
           {formatCurrency(currentValue)}
         </p>
