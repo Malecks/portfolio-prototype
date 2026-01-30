@@ -61,7 +61,7 @@ export function GoalScreen() {
         </div>
       </div>
 
-      <div className="p-5" style={{ borderTop: '1px solid var(--color-border)' }}>
+      <div className="sticky bottom-0 p-5" style={{ borderTop: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
         <Button onClick={() => setScreen('timeline')} disabled={answers.goal === null}>
           Continue
         </Button>

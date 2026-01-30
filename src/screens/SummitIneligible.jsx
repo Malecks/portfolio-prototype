@@ -93,7 +93,7 @@ export function SummitIneligible() {
         </p>
       </div>
 
-      <div className="p-5 space-y-3" style={{ borderTop: '1px solid var(--color-border)' }}>
+      <div className="sticky bottom-0 p-5 space-y-3" style={{ borderTop: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
         <Button onClick={handleChooseAnother}>
           Choose another portfolio
         </Button>

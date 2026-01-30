@@ -1,12 +1,17 @@
 import { useApp } from '../context/AppContext'
 import { Header } from '../components/Header'
-import { Button } from '../components/Button'
 import { DonutChart } from '../components/DonutChart'
 
 const portfolioLabels = {
   classic: 'Classic',
   summit: 'Summit',
   income: 'Income',
+}
+
+const portfolioColors = {
+  classic: '#9B7ED9',
+  summit: '#6B8DD6',
+  income: '#4CAF50',
 }
 
 const riskLabels = {
@@ -19,11 +24,35 @@ const riskLabels = {
   'money-market': 'Money Market',
 }
 
+const riskStats = {
+  conservative: { returnRange: '3%–5%', riskLevel: '3/10' },
+  balanced: { returnRange: '5%–7%', riskLevel: '5/10' },
+  growth: { returnRange: '6.5%–8%', riskLevel: '8/10' },
+  aggressive: { returnRange: '8%–12%', riskLevel: '10/10' },
+}
+
+const portfolioDescriptions = {
+  conservative: 'This conservative mix prioritizes capital preservation with steady, predictable returns. Ideal for short-term goals or low risk tolerance.',
+  balanced: 'A balanced approach that blends growth potential with stability. Suitable for medium-term goals with moderate risk tolerance.',
+  growth: 'This growth-oriented mix gives you exposure to global stocks and some long-duration bonds. Meant for long-term returns with some protection from volatility.',
+  aggressive: 'Maximum growth potential through heavy equity exposure. Best for long time horizons and high risk tolerance.',
+}
+
 // Asset class colors from design system
 const assetColors = {
   equities: '#6B8DD6',
   bonds: '#4CAF50',
   cash: '#9B7ED9',
+  gold: '#C9A227',
+}
+
+const getAssetColor = (name) => {
+  const lower = name.toLowerCase()
+  if (lower.includes('equit')) return assetColors.equities
+  if (lower.includes('bond')) return assetColors.bonds
+  if (lower.includes('gold')) return assetColors.gold
+  if (lower.includes('cash')) return assetColors.cash
+  return '#E0E0E0'
 }
 
 const allocations = {
@@ -43,87 +72,181 @@ const allocations = {
     { name: 'Cash', value: 5 },
   ],
   aggressive: [
-    { name: 'Equities', value: 90 },
-    { name: 'Bonds', value: 8 },
-    { name: 'Cash', value: 2 },
+    { name: 'Equities', value: 85 },
+    { name: 'Bonds', value: 12.5 },
+    { name: 'Gold', value: 2.5 },
   ],
 }
 
 export function AdjustSheet() {
   const { currentPortfolio, setScreen, reset } = useApp()
 
-  const label = `${portfolioLabels[currentPortfolio.type]} ${riskLabels[currentPortfolio.riskProfile]}`
+  const portfolioType = portfolioLabels[currentPortfolio.type]
+  const riskProfile = riskLabels[currentPortfolio.riskProfile]
   const segments = allocations[currentPortfolio.riskProfile] || allocations.growth
+  const stats = riskStats[currentPortfolio.riskProfile] || riskStats.growth
+  const description = portfolioDescriptions[currentPortfolio.riskProfile] || portfolioDescriptions.growth
+  const accentColor = portfolioColors[currentPortfolio.type]
 
   return (
     <div className="flex flex-col min-h-full" style={{ backgroundColor: 'var(--color-surface)' }}>
       <Header title="" onClose={reset} />
 
-      <div className="flex-1 px-5 pt-4">
+      <div className="flex-1 px-5 pt-2 pb-6 overflow-y-auto">
+        {/* Title and description */}
         <h1
-          className="text-[28px] font-bold tracking-[-0.02em] leading-tight mb-4"
+          className="text-[24px] font-bold tracking-[-0.02em] mb-2"
           style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
         >
           Adjust your portfolio
         </h1>
-
-        <p className="text-[15px] leading-relaxed mb-6" style={{ color: 'var(--color-ink-muted)' }}>
-          You have been matched to your current portfolio based on your risk profile. You can switch to a different portfolio or update your profile.
+        <p className="text-[14px] leading-relaxed mb-5" style={{ color: 'var(--color-ink-muted)' }}>
+          Change your portfolio type or update your risk profile.
         </p>
 
-        {/* Current portfolio card */}
+        {/* Portfolio card */}
         <div
-          className="p-4 rounded-2xl mb-6"
+          className="rounded-2xl p-5"
           style={{
             backgroundColor: 'var(--color-surface-raised)',
             border: '1px solid var(--color-border)',
           }}
         >
-          <div className="flex items-center gap-2.5 mb-4">
-            <span className="font-semibold text-[15px]" style={{ color: 'var(--color-ink)' }}>{label}</span>
-            <span
-              className="text-[11px] font-medium px-2 py-0.5 rounded-full"
-              style={{
-                backgroundColor: 'var(--color-positive-soft)',
-                color: 'var(--color-positive)',
-              }}
-            >
-              Current
-            </span>
-          </div>
-
-          <div className="flex items-center gap-5">
-            <DonutChart segments={segments} size={72} />
-            <div className="flex-1 space-y-1.5">
-              {segments.map((s, i) => (
-                <div key={s.name} className="flex items-center justify-between text-[13px]">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s.name === 'Equities' ? assetColors.equities : s.name === 'Bonds' ? assetColors.bonds : assetColors.cash }} />
-                    <span style={{ color: 'var(--color-ink-muted)' }}>{s.name}</span>
-                  </div>
-                  <span className="font-semibold tabular-nums" style={{ color: 'var(--color-ink)' }}>{s.value}%</span>
-                </div>
-              ))}
+          {/* Header with type and risk profile */}
+          <div className="flex items-start gap-3 mb-5">
+            <div
+              className="w-1 rounded-full self-stretch"
+              style={{ backgroundColor: accentColor }}
+            />
+            <div className="flex-1">
+              <span className="text-[14px] block" style={{ color: 'var(--color-ink-muted)' }}>
+                {portfolioType}
+              </span>
+              <span
+                className="text-[28px] font-bold tracking-[-0.02em] block mt-0.5"
+                style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+              >
+                {riskProfile}
+              </span>
             </div>
           </div>
-        </div>
 
-        {/* Description */}
-        <p className="text-[14px] leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
-          {currentPortfolio.type === 'classic' && 'Classic is a traditional mix of stocks, bonds, and cash designed for long-term growth with your risk tolerance in mind.'}
-          {currentPortfolio.type === 'summit' && 'Summit offers enhanced returns through alternative investments, designed for qualified investors.'}
-          {currentPortfolio.type === 'income' && 'Income portfolios focus on generating steady returns through fixed income securities.'}
-        </p>
+          {/* Stats row */}
+          <div className="flex gap-3 mb-6">
+            <div
+              className="flex-1 p-3 rounded-xl"
+              style={{ backgroundColor: 'var(--color-surface-sunken)' }}
+            >
+              <div className="flex items-center gap-1.5 mb-1">
+                <span className="text-[12px]" style={{ color: 'var(--color-ink-muted)' }}>
+                  Expected return
+                </span>
+                <svg
+                  className="w-3.5 h-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  style={{ color: 'var(--color-ink-subtle)' }}
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 16v-4M12 8h.01" />
+                </svg>
+              </div>
+              <span
+                className="text-[20px] font-bold tracking-[-0.01em]"
+                style={{ color: 'var(--color-ink)' }}
+              >
+                {stats.returnRange}
+              </span>
+            </div>
+            <div
+              className="flex-1 p-3 rounded-xl"
+              style={{ backgroundColor: 'var(--color-surface-sunken)' }}
+            >
+              <span className="text-[12px] block mb-1" style={{ color: 'var(--color-ink-muted)' }}>
+                Risk level
+              </span>
+              <span
+                className="text-[20px] font-bold tracking-[-0.01em]"
+                style={{ color: 'var(--color-ink)' }}
+              >
+                {stats.riskLevel}
+              </span>
+            </div>
+          </div>
+
+          {/* About section */}
+          <div className="mb-6">
+            <h3 className="text-[15px] font-semibold mb-2" style={{ color: 'var(--color-ink)' }}>
+              About this portfolio
+            </h3>
+            <p className="text-[14px] leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
+              {description}
+            </p>
+          </div>
+
+          {/* Donut chart */}
+          <div className="flex justify-center mb-5">
+            <DonutChart segments={segments} size={160} />
+          </div>
+
+          {/* Legend */}
+          <div className="space-y-3 mb-5">
+            {segments.map((s) => (
+              <div key={s.name} className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div
+                    className="w-3 h-3 rounded"
+                    style={{ backgroundColor: getAssetColor(s.name) }}
+                  />
+                  <span className="text-[15px]" style={{ color: 'var(--color-ink)' }}>
+                    {s.name}
+                  </span>
+                </div>
+                <span
+                  className="text-[15px] font-semibold tabular-nums"
+                  style={{ color: 'var(--color-ink)' }}
+                >
+                  {s.value}%
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* See details button */}
+          <button
+            className="w-full py-3 rounded-full border text-[15px] font-semibold transition-colors hover:bg-[var(--color-surface-sunken)]"
+            style={{
+              borderColor: 'var(--color-border)',
+              color: 'var(--color-ink)',
+            }}
+          >
+            See details
+          </button>
+        </div>
       </div>
 
-      {/* Bottom actions */}
-      <div className="p-5 space-y-3" style={{ borderTop: '1px solid var(--color-border)' }}>
-        <Button onClick={() => setScreen('portfolio-selection')}>
+      {/* Bottom actions - sticky */}
+      <div className="sticky bottom-0 p-5 space-y-3" style={{ borderTop: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
+        <button
+          onClick={() => setScreen('portfolio-selection')}
+          className="w-full py-4 px-6 rounded-2xl font-semibold text-[15px] text-white transition-all duration-200 active:scale-[0.98]"
+          style={{ backgroundColor: 'var(--color-ink)' }}
+        >
           Change portfolio type
-        </Button>
-        <Button variant="secondary" onClick={() => setScreen('goal')}>
-          Update your risk profile
-        </Button>
+        </button>
+        <button
+          onClick={() => setScreen('goal')}
+          className="w-full py-4 px-6 rounded-2xl font-semibold text-[15px] border transition-all duration-200 active:scale-[0.98] hover:border-[var(--color-border-strong)]"
+          style={{
+            backgroundColor: 'var(--color-surface-raised)',
+            borderColor: 'var(--color-border)',
+            color: 'var(--color-ink)',
+          }}
+        >
+          Update risk profile
+        </button>
       </div>
     </div>
   )

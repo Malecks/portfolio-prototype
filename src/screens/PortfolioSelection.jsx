@@ -66,7 +66,7 @@ export function PortfolioSelection() {
         </div>
       </div>
 
-      <div className="p-5" style={{ borderTop: '1px solid var(--color-border)' }}>
+      <div className="sticky bottom-0 p-5" style={{ borderTop: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
         <Button onClick={handleContinue} disabled={!selected}>
           Continue
         </Button>

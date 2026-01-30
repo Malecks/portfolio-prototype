@@ -52,7 +52,7 @@ export function TimelineScreen() {
         </div>
       </div>
 
-      <div className="p-5" style={{ borderTop: '1px solid var(--color-border)' }}>
+      <div className="sticky bottom-0 p-5" style={{ borderTop: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
         <Button onClick={() => setScreen('risk')} disabled={answers.timeline === null}>
           Continue
         </Button>
