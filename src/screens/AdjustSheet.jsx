@@ -19,11 +19,12 @@ const riskLabels = {
   'money-market': 'Money Market',
 }
 
-const chartColors = [
-  'oklch(25% 0.02 70)',
-  'oklch(55% 0.03 70)',
-  'oklch(80% 0.02 80)',
-]
+// Asset class colors from design system
+const assetColors = {
+  equities: '#6B8DD6',
+  bonds: '#4CAF50',
+  cash: '#9B7ED9',
+}
 
 const allocations = {
   conservative: [
@@ -97,7 +98,7 @@ export function AdjustSheet() {
               {segments.map((s, i) => (
                 <div key={s.name} className="flex items-center justify-between text-[13px]">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: chartColors[i] }} />
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s.name === 'Equities' ? assetColors.equities : s.name === 'Bonds' ? assetColors.bonds : assetColors.cash }} />
                     <span style={{ color: 'var(--color-ink-muted)' }}>{s.name}</span>
                   </div>
                   <span className="font-semibold tabular-nums" style={{ color: 'var(--color-ink)' }}>{s.value}%</span>

@@ -27,11 +27,20 @@ const goalLabels = [
   'savings',
 ]
 
-const chartColors = [
-  'oklch(25% 0.02 70)',
-  'oklch(55% 0.03 70)',
-  'oklch(80% 0.02 80)',
-]
+// Asset class colors from design system
+const assetColors = {
+  equities: '#6B8DD6',
+  bonds: '#4CAF50',
+  cash: '#9B7ED9',
+}
+
+const getAssetColor = (name) => {
+  const lower = name.toLowerCase()
+  if (lower.includes('equit')) return assetColors.equities
+  if (lower.includes('bond') || lower.includes('fixed') || lower.includes('income') || lower.includes('investment grade') || lower.includes('dynamic')) return assetColors.bonds
+  if (lower.includes('cash') || lower.includes('money market')) return assetColors.cash
+  return '#E0E0E0'
+}
 
 const allocations = {
   conservative: [
@@ -136,7 +145,7 @@ export function ResultScreen() {
               {segments.map((s, i) => (
                 <div key={s.name} className="flex items-center justify-between text-[13px]">
                   <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: chartColors[i] }} />
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: getAssetColor(s.name) }} />
                     <span style={{ color: 'var(--color-ink-muted)' }}>{s.name}</span>
                   </div>
                   <span className="font-semibold tabular-nums" style={{ color: 'var(--color-ink)' }}>{s.value}%</span>

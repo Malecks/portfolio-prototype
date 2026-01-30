@@ -23,11 +23,12 @@ const holdings = [
   { name: 'Cash', value: 10, amount: 30477.62 },
 ]
 
-const chartColors = [
-  'oklch(25% 0.02 70)',
-  'oklch(55% 0.03 70)',
-  'oklch(80% 0.02 80)',
-]
+// Asset class colors from design system
+const assetColors = {
+  equities: '#6B8DD6',
+  bonds: '#4CAF50',
+  cash: '#9B7ED9',
+}
 
 function DetailRow({ label, value, secondaryValue, onPress, copyable, badge, info }) {
   return (
@@ -193,7 +194,7 @@ export function PortfolioOverview() {
                 <div className="flex items-center gap-2.5">
                   <div
                     className="w-2.5 h-2.5 rounded-full"
-                    style={{ backgroundColor: chartColors[i] }}
+                    style={{ backgroundColor: h.name === 'Equities' ? assetColors.equities : h.name === 'Bonds' ? assetColors.bonds : assetColors.cash }}
                   />
                   <span className="text-[13px]" style={{ color: 'var(--color-ink-muted)' }}>{h.name}</span>
                 </div>
