@@ -144,7 +144,7 @@ export function ResultScreen() {
 
         <h1
           className="text-[24px] font-bold tracking-[-0.02em] leading-tight text-center mb-2"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           Great fit for you
         </h1>
@@ -174,7 +174,7 @@ export function ResultScreen() {
               </span>
               <span
                 className="text-[28px] font-bold tracking-[-0.02em] block mt-0.5"
-                style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+                style={{ color: 'var(--color-ink)' }}
               >
                 {riskProfile}
               </span>

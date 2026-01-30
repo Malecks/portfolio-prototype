@@ -37,7 +37,7 @@ export function GoalScreen() {
         <span className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: 'var(--color-ink-subtle)' }}>Goal</span>
         <h1
           className="text-[28px] font-bold tracking-[-0.02em] leading-tight mb-2 mt-2"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           What are you saving for?
         </h1>

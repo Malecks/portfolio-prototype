@@ -75,7 +75,7 @@ export function ConfirmProfileScreen() {
       <div className="flex-1 px-5 pt-4 pb-6 overflow-y-auto">
         <h1
           className="text-[24px] font-bold tracking-[-0.02em] leading-tight mb-2"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           Confirm your profile
         </h1>

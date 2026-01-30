@@ -21,7 +21,7 @@ export function ConfirmUpdateScreen() {
 
         <h1
           className="text-[28px] font-bold tracking-[-0.02em] leading-tight mb-3"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           Your portfolio is ready to be updated!
         </h1>

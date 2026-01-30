@@ -32,7 +32,7 @@ export function RiskScreen() {
         <span className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: 'var(--color-ink-subtle)' }}>Risk</span>
         <h1
           className="text-[28px] font-bold tracking-[-0.02em] leading-tight mb-2 mt-2"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           Risk and loss tolerance
         </h1>

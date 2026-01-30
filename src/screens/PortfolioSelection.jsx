@@ -145,7 +145,7 @@ function LearnMoreModal({ portfolio, onClose }) {
           </div>
           <h2
             className="text-[22px] font-bold tracking-[-0.02em]"
-            style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+            style={{ color: 'var(--color-ink)' }}
           >
             {portfolio.title}
           </h2>
@@ -199,7 +199,7 @@ function VariantA({ currentPortfolio, setScreen, reset, summitEligible, selected
       <div className="flex-1 px-5 pt-4">
         <h1
           className="text-[28px] font-bold tracking-[-0.02em] leading-tight mb-2"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           Choose a portfolio
         </h1>
@@ -255,7 +255,7 @@ function VariantB({ currentPortfolio, setScreen, summitEligible, setSelectedType
       <div className="flex-1 px-5 pt-4 pb-6">
         <h1
           className="text-[24px] font-bold tracking-[-0.02em] leading-tight mb-2"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           Choose a portfolio
         </h1>

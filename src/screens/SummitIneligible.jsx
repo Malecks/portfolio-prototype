@@ -23,7 +23,7 @@ export function SummitIneligible() {
       <div className="flex-1 px-5 pt-4">
         <h1
           className="text-[28px] font-bold tracking-[-0.02em] leading-tight mb-2"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           You don't qualify for Summit
         </h1>

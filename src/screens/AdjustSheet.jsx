@@ -116,7 +116,7 @@ function PencilIcon() {
   )
 }
 
-function VariantA({ currentPortfolio, setScreen, reset }) {
+function VariantA({ currentPortfolio, setScreen, reset, setSelectedType }) {
   const portfolioType = portfolioLabels[currentPortfolio.type]
   const riskProfile = riskLabels[currentPortfolio.riskProfile]
   const segments = allocations[currentPortfolio.riskProfile] || allocations.growth
@@ -131,7 +131,7 @@ function VariantA({ currentPortfolio, setScreen, reset }) {
       <div className="flex-1 px-5 pt-2 pb-6 overflow-y-auto">
         <h1
           className="text-[24px] font-bold tracking-[-0.02em] mb-2"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           Adjust your portfolio
         </h1>
@@ -157,7 +157,7 @@ function VariantA({ currentPortfolio, setScreen, reset }) {
               </span>
               <span
                 className="text-[28px] font-bold tracking-[-0.02em] block mt-0.5"
-                style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+                style={{ color: 'var(--color-ink)' }}
               >
                 {riskProfile}
               </span>
@@ -264,7 +264,10 @@ function VariantA({ currentPortfolio, setScreen, reset }) {
           Change portfolio type
         </button>
         <button
-          onClick={() => setScreen('goal')}
+          onClick={() => {
+            setSelectedType(null)
+            setScreen('goal')
+          }}
           className="w-full py-4 px-6 rounded-2xl font-semibold text-[15px] border transition-all duration-200 active:scale-[0.98] hover:border-[var(--color-border-strong)]"
           style={{
             backgroundColor: 'var(--color-surface-raised)',
@@ -279,7 +282,7 @@ function VariantA({ currentPortfolio, setScreen, reset }) {
   )
 }
 
-function VariantB({ currentPortfolio, setScreen, reset }) {
+function VariantB({ currentPortfolio, setScreen, reset, setSelectedType }) {
   const portfolioType = portfolioLabels[currentPortfolio.type]
   const riskProfile = riskLabels[currentPortfolio.riskProfile]
   const stats = riskStats[currentPortfolio.riskProfile] || riskStats.growth
@@ -292,7 +295,7 @@ function VariantB({ currentPortfolio, setScreen, reset }) {
       <div className="flex-1 px-5 pt-4 pb-6 overflow-y-auto">
         <h1
           className="text-[24px] font-bold tracking-[-0.02em] mb-3"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+          style={{ color: 'var(--color-ink)' }}
         >
           Adjust your portfolio
         </h1>
@@ -328,7 +331,10 @@ function VariantB({ currentPortfolio, setScreen, reset }) {
 
           {/* Risk profile card */}
           <button
-            onClick={() => setScreen('goal')}
+            onClick={() => {
+              setSelectedType(null)
+              setScreen('goal')
+            }}
             className="w-full text-left p-5 rounded-2xl transition-colors hover:bg-[var(--color-surface-sunken)]"
             style={{
               backgroundColor: 'var(--color-surface-raised)',
@@ -380,7 +386,7 @@ function VariantB({ currentPortfolio, setScreen, reset }) {
 }
 
 export function AdjustSheet() {
-  const { currentPortfolio, setScreen, reset, adjustSheetVariant, setAdjustSheetVariant } = useApp()
+  const { currentPortfolio, setScreen, reset, adjustSheetVariant, setAdjustSheetVariant, setSelectedType } = useApp()
 
   return (
     <div className="flex flex-col min-h-full" style={{ backgroundColor: 'var(--color-surface)' }}>
@@ -409,9 +415,9 @@ export function AdjustSheet() {
       </div>
 
       {adjustSheetVariant === 'A' ? (
-        <VariantA currentPortfolio={currentPortfolio} setScreen={setScreen} reset={reset} />
+        <VariantA currentPortfolio={currentPortfolio} setScreen={setScreen} reset={reset} setSelectedType={setSelectedType} />
       ) : (
-        <VariantB currentPortfolio={currentPortfolio} setScreen={setScreen} reset={reset} />
+        <VariantB currentPortfolio={currentPortfolio} setScreen={setScreen} reset={reset} setSelectedType={setSelectedType} />
       )}
     </div>
   )

@@ -127,7 +127,7 @@ export function PortfolioOverview() {
         <div className="flex items-baseline gap-1.5">
           <span
             className="text-[40px] font-bold tracking-[-0.02em] leading-none"
-            style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+            style={{ color: 'var(--color-ink)' }}
           >
             ${currentPortfolio.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
           </span>
