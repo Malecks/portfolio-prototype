@@ -11,6 +11,7 @@ import { RiskScreen } from './screens/RiskScreen'
 import { ResultScreen } from './screens/ResultScreen'
 import { ConfirmProfileScreen } from './screens/ConfirmProfileScreen'
 import { LoadingScreen } from './screens/LoadingScreen'
+import { ConfirmUpdateScreen } from './screens/ConfirmUpdateScreen'
 
 function AppContent() {
   const { screen } = useApp()
@@ -27,6 +28,7 @@ function AppContent() {
     result: ResultScreen,
     'confirm-profile': ConfirmProfileScreen,
     loading: LoadingScreen,
+    'confirm-update': ConfirmUpdateScreen,
   }
 
   const Screen = screens[screen] || PortfolioOverview

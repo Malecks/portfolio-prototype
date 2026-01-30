@@ -106,7 +106,7 @@ const allocations = {
 }
 
 export function ResultScreen() {
-  const { currentPortfolio, answers, reset } = useApp()
+  const { currentPortfolio, answers, reset, setScreen } = useApp()
 
   const portfolioType = portfolioLabels[currentPortfolio.type]
   const riskProfile = riskLabels[currentPortfolio.riskProfile]
@@ -267,7 +267,7 @@ export function ResultScreen() {
       </div>
 
       <div className="sticky bottom-0 p-5 space-y-3" style={{ borderTop: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
-        <Button onClick={reset}>
+        <Button onClick={() => setScreen('confirm-update')}>
           Confirm and update
         </Button>
         <Button variant="ghost" onClick={reset}>

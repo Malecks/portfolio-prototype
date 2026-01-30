@@ -15,6 +15,7 @@ export function AppProvider({ children }) {
   const [incomeChoice, setIncomeChoice] = useState(null)
   const [summitEligible, setSummitEligible] = useState(true)
   const [debugTapCount, setDebugTapCount] = useState(0)
+  const [showToast, setShowToast] = useState(false)
 
   const calculateRiskProfile = (timeline, risk) => {
     // Risk tolerance weighted heavily
@@ -62,6 +63,18 @@ export function AppProvider({ children }) {
     setScreen('overview')
   }
 
+  const confirmUpdate = () => {
+    setSelectedType(null)
+    setAnswers({ goal: null, timeline: null, riskTolerance: null })
+    setIncomeChoice(null)
+    setScreen('overview')
+    setShowToast(true)
+  }
+
+  const hideToast = () => {
+    setShowToast(false)
+  }
+
   const handleDebugTap = () => {
     const newCount = debugTapCount + 1
     setDebugTapCount(newCount)
@@ -86,6 +99,9 @@ export function AppProvider({ children }) {
         summitEligible,
         completeFlow,
         reset,
+        confirmUpdate,
+        showToast,
+        hideToast,
         handleDebugTap,
         calculateRiskProfile,
       }}

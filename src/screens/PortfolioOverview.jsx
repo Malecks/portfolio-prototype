@@ -1,5 +1,6 @@
 import { useApp } from '../context/AppContext'
 import { DonutChart } from '../components/DonutChart'
+import { Toast } from '../components/Toast'
 
 const portfolioLabels = {
   classic: 'Classic',
@@ -88,7 +89,7 @@ function DetailRow({ label, value, secondaryValue, onPress, copyable, badge, inf
 }
 
 export function PortfolioOverview() {
-  const { currentPortfolio, setScreen } = useApp()
+  const { currentPortfolio, setScreen, showToast, hideToast } = useApp()
 
   const portfolioLabel = `${portfolioLabels[currentPortfolio.type]} ${riskLabels[currentPortfolio.riskProfile]}`
 
@@ -291,6 +292,12 @@ export function PortfolioOverview() {
             <span className="text-[10px] font-medium" style={{ color: 'var(--color-ink-subtle)' }}>Profile</span>
           </button>
       </div>
+
+      <Toast
+        message="Portfolio updated successfully"
+        visible={showToast}
+        onHide={hideToast}
+      />
     </div>
   )
 }
