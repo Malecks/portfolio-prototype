@@ -16,6 +16,7 @@ export function AppProvider({ children }) {
   const [summitEligible, setSummitEligible] = useState(true)
   const [debugTapCount, setDebugTapCount] = useState(0)
   const [showToast, setShowToast] = useState(false)
+  const [adjustSheetVariant, setAdjustSheetVariant] = useState('A') // 'A' or 'B'
 
   const calculateRiskProfile = (timeline, risk) => {
     // Risk tolerance weighted heavily
@@ -104,6 +105,8 @@ export function AppProvider({ children }) {
         hideToast,
         handleDebugTap,
         calculateRiskProfile,
+        adjustSheetVariant,
+        setAdjustSheetVariant,
       }}
     >
       {children}

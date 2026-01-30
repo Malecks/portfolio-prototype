@@ -78,9 +78,45 @@ const allocations = {
   ],
 }
 
-export function AdjustSheet() {
-  const { currentPortfolio, setScreen, reset } = useApp()
+const portfolioTypeDescriptions = {
+  classic: 'Traditional mix of assets hand picked by our experts',
+  summit: 'Enhanced portfolio with alternative investments',
+  income: 'Fixed income focused for steady returns',
+}
 
+const riskProfileDescriptions = {
+  conservative: 'Best for short term goals with lower risk tolerance.',
+  balanced: 'A balanced mix of growth and stability.',
+  growth: 'Best for long term goals with a mix of assets to balance risk.',
+  aggressive: 'Maximum growth potential for long time horizons.',
+}
+
+const equityPercentages = {
+  conservative: 30,
+  balanced: 50,
+  growth: 80,
+  aggressive: 90,
+}
+
+function PencilIcon() {
+  return (
+    <svg
+      className="w-5 h-5"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ color: 'var(--color-ink-muted)' }}
+    >
+      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+      <path d="m15 5 4 4" />
+    </svg>
+  )
+}
+
+function VariantA({ currentPortfolio, setScreen, reset }) {
   const portfolioType = portfolioLabels[currentPortfolio.type]
   const riskProfile = riskLabels[currentPortfolio.riskProfile]
   const segments = allocations[currentPortfolio.riskProfile] || allocations.growth
@@ -89,11 +125,10 @@ export function AdjustSheet() {
   const accentColor = portfolioColors[currentPortfolio.type]
 
   return (
-    <div className="flex flex-col min-h-full" style={{ backgroundColor: 'var(--color-surface)' }}>
+    <>
       <Header title="" onClose={reset} />
 
       <div className="flex-1 px-5 pt-2 pb-6 overflow-y-auto">
-        {/* Title and description */}
         <h1
           className="text-[24px] font-bold tracking-[-0.02em] mb-2"
           style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
@@ -104,7 +139,6 @@ export function AdjustSheet() {
           Change your portfolio type or update your risk profile.
         </p>
 
-        {/* Portfolio card */}
         <div
           className="rounded-2xl p-5"
           style={{
@@ -112,7 +146,6 @@ export function AdjustSheet() {
             border: '1px solid var(--color-border)',
           }}
         >
-          {/* Header with type and risk profile */}
           <div className="flex items-start gap-3 mb-5">
             <div
               className="w-1 rounded-full self-stretch"
@@ -131,7 +164,6 @@ export function AdjustSheet() {
             </div>
           </div>
 
-          {/* Stats row */}
           <div className="flex gap-3 mb-6">
             <div
               className="flex-1 p-3 rounded-xl"
@@ -176,7 +208,6 @@ export function AdjustSheet() {
             </div>
           </div>
 
-          {/* About section */}
           <div className="mb-6">
             <h3 className="text-[15px] font-semibold mb-2" style={{ color: 'var(--color-ink)' }}>
               About this portfolio
@@ -186,12 +217,10 @@ export function AdjustSheet() {
             </p>
           </div>
 
-          {/* Donut chart */}
           <div className="flex justify-center mb-5">
             <DonutChart segments={segments} size={160} />
           </div>
 
-          {/* Legend */}
           <div className="space-y-3 mb-5">
             {segments.map((s) => (
               <div key={s.name} className="flex items-center justify-between">
@@ -214,7 +243,6 @@ export function AdjustSheet() {
             ))}
           </div>
 
-          {/* See details button */}
           <button
             className="w-full py-3 rounded-full border text-[15px] font-semibold transition-colors hover:bg-[var(--color-surface-sunken)]"
             style={{
@@ -227,7 +255,6 @@ export function AdjustSheet() {
         </div>
       </div>
 
-      {/* Bottom actions - sticky */}
       <div className="sticky bottom-0 p-5 space-y-3" style={{ borderTop: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
         <button
           onClick={() => setScreen('portfolio-selection')}
@@ -248,6 +275,144 @@ export function AdjustSheet() {
           Update risk profile
         </button>
       </div>
+    </>
+  )
+}
+
+function VariantB({ currentPortfolio, setScreen, reset }) {
+  const portfolioType = portfolioLabels[currentPortfolio.type]
+  const riskProfile = riskLabels[currentPortfolio.riskProfile]
+  const stats = riskStats[currentPortfolio.riskProfile] || riskStats.growth
+  const equityPct = equityPercentages[currentPortfolio.riskProfile] || 70
+
+  return (
+    <>
+      <Header title="" onBack={() => setScreen('overview')} />
+
+      <div className="flex-1 px-5 pt-4 pb-6 overflow-y-auto">
+        <h1
+          className="text-[24px] font-bold tracking-[-0.02em] mb-3"
+          style={{ fontFamily: 'var(--font-display)', color: 'var(--color-ink)' }}
+        >
+          Adjust your portfolio
+        </h1>
+        <p className="text-[15px] leading-relaxed mb-8" style={{ color: 'var(--color-ink-muted)' }}>
+          If you have a new goal, need your money sooner, or have more flexibility with your investment – it might be time to update your portfolio.
+        </p>
+
+        <div className="space-y-4">
+          {/* Portfolio type card */}
+          <button
+            onClick={() => setScreen('portfolio-selection')}
+            className="w-full text-left p-5 rounded-2xl transition-colors hover:bg-[var(--color-surface-sunken)]"
+            style={{
+              backgroundColor: 'var(--color-surface-raised)',
+              border: '1px solid var(--color-border)',
+            }}
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex-1 pr-4">
+                <h3
+                  className="text-[17px] font-semibold mb-1"
+                  style={{ color: 'var(--color-ink)' }}
+                >
+                  {portfolioType}
+                </h3>
+                <p className="text-[14px] leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
+                  {portfolioTypeDescriptions[currentPortfolio.type]}
+                </p>
+              </div>
+              <PencilIcon />
+            </div>
+          </button>
+
+          {/* Risk profile card */}
+          <button
+            onClick={() => setScreen('goal')}
+            className="w-full text-left p-5 rounded-2xl transition-colors hover:bg-[var(--color-surface-sunken)]"
+            style={{
+              backgroundColor: 'var(--color-surface-raised)',
+              border: '1px solid var(--color-border)',
+            }}
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex-1 pr-4">
+                <h3
+                  className="text-[17px] font-semibold mb-1"
+                  style={{ color: 'var(--color-ink)' }}
+                >
+                  {riskProfile}
+                </h3>
+                <p className="text-[14px] leading-relaxed mb-3" style={{ color: 'var(--color-ink-muted)' }}>
+                  {riskProfileDescriptions[currentPortfolio.riskProfile] || riskProfileDescriptions.growth}
+                </p>
+                <div className="flex gap-4 text-[13px] font-medium" style={{ color: 'var(--color-ink)' }}>
+                  <span>{equityPct}% equities</span>
+                  <span>{stats.riskLevel} risk</span>
+                </div>
+              </div>
+              <PencilIcon />
+            </div>
+          </button>
+
+          {/* Theme card (placeholder) */}
+          <button
+            className="w-full text-left p-5 rounded-2xl transition-colors hover:bg-[var(--color-surface-sunken)]"
+            style={{
+              backgroundColor: 'var(--color-surface-raised)',
+              border: '1px solid var(--color-border)',
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <h3
+                className="text-[17px] font-semibold"
+                style={{ color: 'var(--color-ink)' }}
+              >
+                Theme
+              </h3>
+              <PencilIcon />
+            </div>
+          </button>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export function AdjustSheet() {
+  const { currentPortfolio, setScreen, reset, adjustSheetVariant, setAdjustSheetVariant } = useApp()
+
+  return (
+    <div className="flex flex-col min-h-full" style={{ backgroundColor: 'var(--color-surface)' }}>
+      {/* A/B Toggle */}
+      <div className="absolute top-14 right-4 z-20 flex rounded-full overflow-hidden" style={{ border: '1px solid var(--color-border)' }}>
+        <button
+          onClick={() => setAdjustSheetVariant('A')}
+          className="px-3 py-1 text-[11px] font-semibold transition-colors"
+          style={{
+            backgroundColor: adjustSheetVariant === 'A' ? 'var(--color-ink)' : 'var(--color-surface)',
+            color: adjustSheetVariant === 'A' ? 'white' : 'var(--color-ink-muted)',
+          }}
+        >
+          A
+        </button>
+        <button
+          onClick={() => setAdjustSheetVariant('B')}
+          className="px-3 py-1 text-[11px] font-semibold transition-colors"
+          style={{
+            backgroundColor: adjustSheetVariant === 'B' ? 'var(--color-ink)' : 'var(--color-surface)',
+            color: adjustSheetVariant === 'B' ? 'white' : 'var(--color-ink-muted)',
+          }}
+        >
+          B
+        </button>
+      </div>
+
+      {adjustSheetVariant === 'A' ? (
+        <VariantA currentPortfolio={currentPortfolio} setScreen={setScreen} reset={reset} />
+      ) : (
+        <VariantB currentPortfolio={currentPortfolio} setScreen={setScreen} reset={reset} />
+      )}
     </div>
   )
 }
