@@ -297,6 +297,7 @@ export function PortfolioOverview() {
         message="Portfolio updated successfully"
         visible={showToast}
         onHide={hideToast}
+        delay={500}
       />
     </div>
   )
