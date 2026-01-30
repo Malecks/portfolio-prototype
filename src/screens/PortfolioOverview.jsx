@@ -1,6 +1,5 @@
 import { useApp } from '../context/AppContext'
 import { DonutChart } from '../components/DonutChart'
-import { Button } from '../components/Button'
 
 const portfolioLabels = {
   classic: 'Classic',
@@ -30,10 +29,67 @@ const chartColors = [
   'oklch(80% 0.02 80)',
 ]
 
+function DetailRow({ label, value, secondaryValue, onPress, copyable, badge, info }) {
+  return (
+    <div className="flex items-start justify-between py-3.5">
+      <span className="text-[14px]" style={{ color: 'var(--color-ink-muted)' }}>{label}</span>
+      <div className="flex items-center gap-2">
+        <div className="text-right">
+          <span className="text-[14px] font-medium block" style={{ color: 'var(--color-ink)' }}>{value}</span>
+          {secondaryValue && (
+            <span className="text-[12px] mt-0.5 block" style={{ color: 'var(--color-ink-subtle)' }}>{secondaryValue}</span>
+          )}
+        </div>
+        {badge && (
+          <span
+            className="text-[10px] font-semibold px-1.5 py-0.5 rounded uppercase tracking-wide"
+            style={{
+              backgroundColor: 'var(--color-surface-sunken)',
+              color: 'var(--color-ink-muted)',
+            }}
+          >
+            {badge}
+          </span>
+        )}
+        {copyable && (
+          <button
+            className="p-1.5 -m-1 rounded-full hover:bg-[var(--color-surface-sunken)] transition-colors"
+            onClick={() => navigator.clipboard?.writeText(value)}
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-ink-subtle)' }}>
+              <rect x="9" y="9" width="13" height="13" rx="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+          </button>
+        )}
+        {info && (
+          <button className="p-1.5 -m-1 rounded-full hover:bg-[var(--color-surface-sunken)] transition-colors">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-ink-subtle)' }}>
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 16v-4M12 8h.01" />
+            </svg>
+          </button>
+        )}
+        {onPress && (
+          <button
+            onClick={onPress}
+            className="p-1.5 -m-1 rounded-full hover:bg-[var(--color-surface-sunken)] transition-colors"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-ink-subtle)' }}>
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+            </svg>
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
 export function PortfolioOverview() {
   const { currentPortfolio, setScreen } = useApp()
 
-  const label = `${portfolioLabels[currentPortfolio.type]} ${riskLabels[currentPortfolio.riskProfile]}`
+  const portfolioLabel = `${portfolioLabels[currentPortfolio.type]} ${riskLabels[currentPortfolio.riskProfile]}`
 
   return (
     <div className="flex flex-col min-h-full" style={{ backgroundColor: 'var(--color-surface)' }}>
@@ -83,42 +139,8 @@ export function PortfolioOverview() {
         </div>
       </div>
 
-      {/* Portfolio badge */}
-      <div className="px-5 pb-6">
-        <span
-          className="inline-block px-3.5 py-1.5 rounded-full text-[13px] font-semibold tracking-[-0.01em]"
-          style={{
-            backgroundColor: 'var(--color-surface-sunken)',
-            color: 'var(--color-ink)',
-          }}
-        >
-          {label}
-        </span>
-      </div>
-
-      {/* Chart and holdings */}
-      <div className="px-5 pb-8">
-        <div className="flex items-center gap-6">
-          <DonutChart segments={holdings} size={96} />
-          <div className="flex-1 space-y-2.5">
-            {holdings.map((h, i) => (
-              <div key={h.name} className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div
-                    className="w-2.5 h-2.5 rounded-full"
-                    style={{ backgroundColor: chartColors[i] }}
-                  />
-                  <span className="text-[13px]" style={{ color: 'var(--color-ink-muted)' }}>{h.name}</span>
-                </div>
-                <span className="text-[13px] font-semibold tabular-nums" style={{ color: 'var(--color-ink)' }}>{h.value}%</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Quick actions */}
-      <div className="px-5 pb-8 flex gap-3">
+      <div className="px-5 pb-6 flex gap-3">
         <button
           className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl border transition-all duration-200 hover:border-[var(--color-border-strong)] active:scale-[0.98]"
           style={{
@@ -161,7 +183,28 @@ export function PortfolioOverview() {
             <path d="M6 9l6 6 6-6" />
           </svg>
         </button>
-        <div className="space-y-3">
+
+        {/* Chart and breakdown */}
+        <div className="flex items-center gap-6 mb-4">
+          <DonutChart segments={holdings} size={80} />
+          <div className="flex-1 space-y-2">
+            {holdings.map((h, i) => (
+              <div key={h.name} className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{ backgroundColor: chartColors[i] }}
+                  />
+                  <span className="text-[13px]" style={{ color: 'var(--color-ink-muted)' }}>{h.name}</span>
+                </div>
+                <span className="text-[13px] font-semibold tabular-nums" style={{ color: 'var(--color-ink)' }}>{h.value}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Holdings list */}
+        <div className="space-y-2">
           <div
             className="p-4 rounded-2xl"
             style={{ backgroundColor: 'var(--color-surface-sunken)' }}
@@ -195,14 +238,59 @@ export function PortfolioOverview() {
         </div>
       </div>
 
-      {/* Spacer */}
-      <div className="flex-1" />
+      {/* Account details section */}
+      <div className="px-5 pb-6">
+        <h3 className="font-semibold text-[15px] mb-1" style={{ color: 'var(--color-ink)' }}>Account details</h3>
 
-      {/* Bottom action */}
-      <div className="p-5" style={{ borderTop: '1px solid var(--color-border)' }}>
-        <Button onClick={() => setScreen('adjust-sheet')}>
-          Adjust portfolio
-        </Button>
+        <div className="divide-y" style={{ borderColor: 'var(--color-border)' }}>
+          <DetailRow label="Account type" value="TFSA" />
+          <DetailRow label="Account number" value="WW89AA123CAD" copyable />
+          <DetailRow label="Goal" value="General savings" />
+          <DetailRow
+            label="Portfolio"
+            value={portfolioLabels[currentPortfolio.type]}
+            secondaryValue={riskLabels[currentPortfolio.riskProfile]}
+            onPress={() => setScreen('adjust-sheet')}
+          />
+          <DetailRow label="Fees" value="0.4%" badge="Premium" info />
+        </div>
+      </div>
+
+      {/* Bottom nav placeholder */}
+      <div className="mt-auto">
+        <div
+          className="flex items-center justify-around py-3 px-5"
+          style={{ borderTop: '1px solid var(--color-border)' }}
+        >
+          <button className="flex flex-col items-center gap-1 p-2">
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-ink)' }}>
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9,22 9,12 15,12 15,22" />
+            </svg>
+            <span className="text-[10px] font-medium" style={{ color: 'var(--color-ink)' }}>Home</span>
+          </button>
+          <button className="flex flex-col items-center gap-1 p-2">
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-ink-subtle)' }}>
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
+            </svg>
+            <span className="text-[10px] font-medium" style={{ color: 'var(--color-ink-subtle)' }}>Search</span>
+          </button>
+          <button className="flex flex-col items-center gap-1 p-2">
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-ink-subtle)' }}>
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <span className="text-[10px] font-medium" style={{ color: 'var(--color-ink-subtle)' }}>Activity</span>
+          </button>
+          <button className="flex flex-col items-center gap-1 p-2">
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-ink-subtle)' }}>
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span className="text-[10px] font-medium" style={{ color: 'var(--color-ink-subtle)' }}>Profile</span>
+          </button>
+        </div>
       </div>
     </div>
   )
