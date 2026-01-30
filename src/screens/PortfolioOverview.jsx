@@ -243,7 +243,7 @@ export function PortfolioOverview() {
       <div className="px-5 pb-6">
         <h3 className="font-semibold text-[15px] mb-1" style={{ color: 'var(--color-ink)' }}>Account details</h3>
 
-        <div className="divide-y" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="divide-y divide-gray-200">
           <DetailRow label="Account type" value="TFSA" />
           <DetailRow label="Account number" value="WW89AA123CAD" copyable />
           <DetailRow label="Goal" value="General savings" />
