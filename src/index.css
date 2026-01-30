@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* Design tokens */
+:root {
+  /* Warm neutral palette - tinted toward sand/cream */
+  --color-ink: oklch(15% 0.01 70);
+  --color-ink-muted: oklch(45% 0.01 70);
+  --color-ink-subtle: oklch(60% 0.008 70);
+  --color-surface: oklch(99% 0.005 90);
+  --color-surface-raised: oklch(100% 0 0);
+  --color-surface-sunken: oklch(96% 0.008 85);
+  --color-border: oklch(90% 0.01 80);
+  --color-border-strong: oklch(82% 0.015 75);
+
+  /* Accent colors */
+  --color-positive: oklch(55% 0.15 145);
+  --color-positive-soft: oklch(92% 0.04 145);
+  --color-negative: oklch(55% 0.18 25);
+  --color-negative-soft: oklch(92% 0.04 25);
+
+  /* Chart colors - warm tinted */
+  --color-chart-1: oklch(25% 0.02 70);
+  --color-chart-2: oklch(55% 0.03 70);
+  --color-chart-3: oklch(80% 0.02 80);
+
+  /* Typography */
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* Easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: oklch(92% 0.01 70);
+  color: var(--color-ink);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Focus states */
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions globally */
+button, a, input {
+  transition: all 200ms var(--ease-out);
+}
