@@ -5,12 +5,10 @@ export function Toast({ message, visible, onHide, delay = 0 }) {
 
   useEffect(() => {
     if (visible) {
-      // Delay showing the toast
       const showTimer = setTimeout(() => {
         setShow(true)
       }, delay)
 
-      // Auto-hide after delay + 4 seconds
       const hideTimer = setTimeout(() => {
         onHide()
       }, delay + 4000)
@@ -24,14 +22,21 @@ export function Toast({ message, visible, onHide, delay = 0 }) {
     }
   }, [visible, onHide, delay])
 
+  // Phone frame is 844px tall, centered. Position toast 120px above bottom of frame.
+  // From center: 422px (half height) - 120px = 302px below center
   return (
     <div
-      className="absolute left-0 right-0 bottom-28 z-50 flex justify-center"
       style={{
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: show
+          ? 'translate(-50%, 272px) scale(1)'
+          : 'translate(-50%, 284px) scale(0.95)',
         opacity: show ? 1 : 0,
-        transform: show ? 'translateY(0) scale(1)' : 'translateY(12px) scale(0.95)',
         transition: 'opacity 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1)',
         pointerEvents: show ? 'auto' : 'none',
+        zIndex: 9999,
       }}
     >
       <div

@@ -1,10 +1,11 @@
 import { useApp } from '../context/AppContext'
+import { Toast } from './Toast'
 
 export function MobileFrame({ children }) {
-  const { handleDebugTap, summitEligible } = useApp()
+  const { handleDebugTap, summitEligible, showToast, hideToast } = useApp()
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: 'oklch(92% 0.01 70)' }}>
+    <div className="min-h-screen flex items-center justify-center p-4 relative" style={{ backgroundColor: 'oklch(92% 0.01 70)' }}>
       <div
         className="w-full max-w-[390px] h-[844px] rounded-[3rem] shadow-2xl overflow-hidden relative"
         style={{
@@ -36,17 +37,24 @@ export function MobileFrame({ children }) {
           </div>
         </div>
         {/* Content area */}
-        <div className="h-[calc(100%-3rem)] overflow-y-auto relative">
+        <div className="h-[calc(100%-3rem)] overflow-y-auto">
           {children}
         </div>
         {/* Version indicator for debug */}
         <button
           onClick={handleDebugTap}
-          className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] opacity-30 hover:opacity-60 transition-opacity"
+          className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] opacity-30 hover:opacity-60 transition-opacity z-10"
           style={{ color: 'var(--color-ink-subtle)' }}
         >
           v1.0.0 {summitEligible ? '●' : '○'}
         </button>
+        {/* Toast */}
+        <Toast
+          message="Portfolio updated successfully"
+          visible={showToast}
+          onHide={hideToast}
+          delay={500}
+        />
       </div>
     </div>
   )
