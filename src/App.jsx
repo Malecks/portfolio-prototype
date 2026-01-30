@@ -10,6 +10,7 @@ import { TimelineScreen } from './screens/TimelineScreen'
 import { RiskScreen } from './screens/RiskScreen'
 import { ResultScreen } from './screens/ResultScreen'
 import { ConfirmProfileScreen } from './screens/ConfirmProfileScreen'
+import { LoadingScreen } from './screens/LoadingScreen'
 
 function AppContent() {
   const { screen } = useApp()
@@ -25,6 +26,7 @@ function AppContent() {
     risk: RiskScreen,
     result: ResultScreen,
     'confirm-profile': ConfirmProfileScreen,
+    loading: LoadingScreen,
   }
 
   const Screen = screens[screen] || PortfolioOverview

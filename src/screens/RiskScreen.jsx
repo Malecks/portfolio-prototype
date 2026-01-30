@@ -14,7 +14,7 @@ export function RiskScreen() {
 
   const handleContinue = () => {
     completeFlow()
-    setScreen('result')
+    setScreen('loading')
   }
 
   return (

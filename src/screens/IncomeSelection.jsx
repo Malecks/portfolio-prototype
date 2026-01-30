@@ -26,7 +26,7 @@ export function IncomeSelection() {
 
   const handleContinue = () => {
     completeFlow()
-    setScreen('result')
+    setScreen('loading')
   }
 
   return (

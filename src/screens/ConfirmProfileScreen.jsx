@@ -53,7 +53,7 @@ export function ConfirmProfileScreen() {
     const finalAnswers = { goal: localGoal, timeline: localTimeline, riskTolerance: localRisk }
     setAnswers(finalAnswers)
     completeFlow(finalAnswers)
-    setScreen('result')
+    setScreen('loading')
   }
 
   const toggleSection = (section) => {
