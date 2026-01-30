@@ -12,18 +12,14 @@ const goals = [
 ]
 
 export function GoalScreen() {
-  const { answers, setAnswers, setScreen, reset, selectedType } = useApp()
+  const { answers, setAnswers, setScreen, reset } = useApp()
 
   const handleSelect = (id) => {
     setAnswers({ ...answers, goal: id })
   }
 
   const handleBack = () => {
-    if (selectedType) {
-      setScreen('portfolio-selection')
-    } else {
-      setScreen('adjust-sheet')
-    }
+    setScreen('adjust-sheet')
   }
 
   return (

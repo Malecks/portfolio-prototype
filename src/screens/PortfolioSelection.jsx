@@ -33,7 +33,8 @@ export function PortfolioSelection() {
     } else if (selected === 'income') {
       setScreen('income-selection')
     } else {
-      setScreen('goal')
+      // When changing portfolio type, go to single-step confirmation
+      setScreen('confirm-profile')
     }
   }
 

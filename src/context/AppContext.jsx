@@ -37,14 +37,15 @@ export function AppProvider({ children }) {
     return timeline < 2 ? 'growth' : 'aggressive'
   }
 
-  const completeFlow = () => {
+  const completeFlow = (overrideAnswers = null) => {
     const type = selectedType || currentPortfolio.type
     let riskProfile = currentPortfolio.riskProfile
+    const finalAnswers = overrideAnswers || answers
 
     if (type === 'income') {
       riskProfile = incomeChoice
-    } else if (answers.timeline !== null && answers.riskTolerance !== null) {
-      riskProfile = calculateRiskProfile(answers.timeline, answers.riskTolerance)
+    } else if (finalAnswers.timeline !== null && finalAnswers.riskTolerance !== null) {
+      riskProfile = calculateRiskProfile(finalAnswers.timeline, finalAnswers.riskTolerance)
     }
 
     setCurrentPortfolio({
