@@ -3,6 +3,8 @@ import { MobileFrame } from './components/MobileFrame'
 import { PortfolioOverview } from './screens/PortfolioOverview'
 import { AdjustSheet } from './screens/AdjustSheet'
 import { PortfolioSelection } from './screens/PortfolioSelection'
+import { UpdateRiskProfile } from './screens/UpdateRiskProfile'
+import { PortfolioComparison } from './screens/PortfolioComparison'
 import { SummitIneligible } from './screens/SummitIneligible'
 import { IncomeSelection } from './screens/IncomeSelection'
 import { GoalScreen } from './screens/GoalScreen'
@@ -20,6 +22,8 @@ function AppContent() {
     overview: PortfolioOverview,
     'adjust-sheet': AdjustSheet,
     'portfolio-selection': PortfolioSelection,
+    'update-risk-profile': UpdateRiskProfile,
+    'portfolio-comparison': PortfolioComparison,
     'summit-ineligible': SummitIneligible,
     'income-selection': IncomeSelection,
     goal: GoalScreen,

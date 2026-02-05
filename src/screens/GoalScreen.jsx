@@ -19,7 +19,7 @@ export function GoalScreen() {
   }
 
   const handleBack = () => {
-    setScreen('adjust-sheet')
+    setScreen('portfolio-selection')
   }
 
   return (

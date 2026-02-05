@@ -183,18 +183,22 @@ function VariantA({ currentPortfolio, setScreen, reset, summitEligible, selected
   const selected = selectedType || currentPortfolio.type
 
   const handleContinue = () => {
-    if (selected === 'summit' && !summitEligible) {
-      setScreen('summit-ineligible')
-    } else if (selected === 'income') {
+    if (selected === 'income') {
       setScreen('income-selection')
+    } else if (selected === currentPortfolio.type) {
+      // Same portfolio type - go to risk profile update
+      setScreen('update-risk-profile')
+    } else if (selected === 'summit' && !summitEligible) {
+      setScreen('summit-ineligible')
     } else {
-      setScreen('confirm-profile')
+      // Different portfolio type - go to comparison
+      setScreen('portfolio-comparison')
     }
   }
 
   return (
     <>
-      <Header title="" onBack={() => setScreen('adjust-sheet')} onClose={reset} />
+      <Header title="" onBack={() => setScreen('overview')} onClose={reset} />
 
       <div className="flex-1 px-5 pt-4">
         <h1
@@ -230,18 +234,22 @@ function VariantA({ currentPortfolio, setScreen, reset, summitEligible, selected
   )
 }
 
-function VariantB({ currentPortfolio, setScreen, summitEligible, setSelectedType }) {
+function VariantB({ currentPortfolio, setScreen, reset, summitEligible, setSelectedType }) {
   const [learnMorePortfolio, setLearnMorePortfolio] = useState(null)
 
   const handleSelect = (portfolioId) => {
     setSelectedType(portfolioId)
 
-    if (portfolioId === 'summit' && !summitEligible) {
-      setScreen('summit-ineligible')
-    } else if (portfolioId === 'income') {
+    if (portfolioId === 'income') {
       setScreen('income-selection')
+    } else if (portfolioId === currentPortfolio.type) {
+      // Same portfolio type - go to risk profile update
+      setScreen('update-risk-profile')
+    } else if (portfolioId === 'summit' && !summitEligible) {
+      setScreen('summit-ineligible')
     } else {
-      setScreen('confirm-profile')
+      // Different portfolio type - go to comparison
+      setScreen('portfolio-comparison')
     }
   }
 
@@ -250,7 +258,7 @@ function VariantB({ currentPortfolio, setScreen, summitEligible, setSelectedType
 
   return (
     <>
-      <Header title="" onBack={() => setScreen('adjust-sheet')} />
+      <Header title="" onBack={() => setScreen('overview')} onClose={reset} />
 
       <div className="flex-1 px-5 pt-4 pb-6">
         <h1
@@ -344,6 +352,7 @@ export function PortfolioSelection() {
         <VariantB
           currentPortfolio={currentPortfolio}
           setScreen={setScreen}
+          reset={reset}
           summitEligible={summitEligible}
           setSelectedType={setSelectedType}
         />

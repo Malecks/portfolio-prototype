@@ -251,7 +251,7 @@ export function PortfolioOverview() {
             label="Portfolio"
             value={portfolioLabels[currentPortfolio.type]}
             secondaryValue={riskLabels[currentPortfolio.riskProfile]}
-            onPress={() => setScreen('adjust-sheet')}
+            onPress={() => setScreen('portfolio-selection')}
           />
           <DetailRow label="Fees" value="0.4%" badge="Premium" info />
         </div>
