@@ -256,24 +256,24 @@ export function PortfolioComparison() {
   }
 
   return (
-    <div className="flex flex-col min-h-full" style={{ backgroundColor: 'var(--color-surface)' }}>
-      {/* Hero area with overlaid header */}
-      <div
-        className="relative"
-        style={{
-          background: 'linear-gradient(to bottom, oklch(94% 0.01 280), oklch(96% 0.008 85), var(--color-surface))',
-        }}
+    <div
+      className="flex flex-col min-h-full"
+      style={{
+        backgroundColor: 'var(--color-surface)',
+        backgroundImage: 'linear-gradient(to bottom, oklch(94% 0.01 280), oklch(96% 0.008 85), var(--color-surface))',
+        backgroundSize: '100% 320px',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <Header title="" onBack={() => setScreen('portfolio-selection')} onClose={reset} transparent />
+      <h1
+        className="text-[24px] font-bold tracking-[-0.02em] leading-tight text-center mb-2"
+        style={{ color: 'var(--color-ink)' }}
       >
-        <Header title="" onBack={() => setScreen('portfolio-selection')} onClose={reset} transparent />
-        <h1
-          className="text-[24px] font-bold tracking-[-0.02em] leading-tight text-center mb-2"
-          style={{ color: 'var(--color-ink)' }}
-        >
-          {targetData.heroTitle}
-        </h1>
-        <div className="flex items-center justify-center py-6">
-          <span className="text-[72px]">{targetData.emoji}</span>
-        </div>
+        {targetData.heroTitle}
+      </h1>
+      <div className="flex items-center justify-center py-3">
+        <span className="text-[72px]">{targetData.emoji}</span>
       </div>
 
       <div className="flex-1 px-5 overflow-y-auto">

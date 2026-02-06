@@ -41,18 +41,18 @@ export function AboutIncome() {
   const { setScreen, reset } = useApp()
 
   return (
-    <div className="flex flex-col min-h-full" style={{ backgroundColor: 'var(--color-surface)' }}>
-      {/* Hero area with overlaid header */}
-      <div
-        className="relative"
-        style={{
-          background: 'linear-gradient(to bottom, oklch(94% 0.01 280), oklch(96% 0.008 85), var(--color-surface))',
-        }}
-      >
-        <Header title="" onBack={() => setScreen('portfolio-selection')} onClose={reset} transparent />
-        <div className="flex items-center justify-center py-10">
-          <span className="text-[72px]">🌺</span>
-        </div>
+    <div
+      className="flex flex-col min-h-full"
+      style={{
+        backgroundColor: 'var(--color-surface)',
+        backgroundImage: 'linear-gradient(to bottom, oklch(94% 0.01 280), oklch(96% 0.008 85), var(--color-surface))',
+        backgroundSize: '100% 320px',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <Header title="" onBack={() => setScreen('portfolio-selection')} onClose={reset} transparent />
+      <div className="flex items-center justify-center py-5">
+        <span className="text-[72px]">🌺</span>
       </div>
 
       <div className="flex-1 px-5 pt-4">

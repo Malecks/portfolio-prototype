@@ -15,8 +15,7 @@ export function MobileFrame({ children }) {
       >
         {/* Status bar */}
         <div
-          className="h-12 flex items-center justify-between px-8 pt-2"
-          style={{ backgroundColor: 'var(--color-surface)' }}
+          className="absolute top-0 left-0 right-0 z-50 h-12 flex items-center justify-between px-8 pt-2"
         >
           <span className="text-sm font-semibold" style={{ color: 'var(--color-ink)' }}>9:41</span>
           <div className="flex items-center gap-1.5" style={{ color: 'var(--color-ink)' }}>
@@ -37,7 +36,7 @@ export function MobileFrame({ children }) {
           </div>
         </div>
         {/* Content area */}
-        <div className="h-[calc(100%-3rem)] overflow-y-auto">
+        <div className="h-full overflow-y-auto">
           {children}
         </div>
         {/* Version indicator for debug */}

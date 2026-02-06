@@ -95,7 +95,7 @@ export function PortfolioOverview() {
   return (
     <div className="flex flex-col min-h-full" style={{ backgroundColor: 'var(--color-surface)' }}>
       {/* Header */}
-      <div className="px-5 py-4 flex items-center justify-between">
+      <div className="px-5 pt-14 pb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
             className="p-1 -ml-1 rounded-lg transition-colors hover:bg-[var(--color-surface-sunken)]"
