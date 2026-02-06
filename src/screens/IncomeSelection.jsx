@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useApp } from '../context/AppContext'
 import { Header } from '../components/Header'
 import { Button } from '../components/Button'
@@ -50,8 +50,12 @@ export function IncomeSelection() {
 
   const portfolio = incomePortfolios[selectedIndex]
 
-  const handleInvest = () => {
+  // Keep incomeChoice in sync with dropdown selection
+  useEffect(() => {
     setIncomeChoice(portfolio.id)
+  }, [selectedIndex])
+
+  const handleInvest = () => {
     completeFlow()
     setScreen('loading')
   }

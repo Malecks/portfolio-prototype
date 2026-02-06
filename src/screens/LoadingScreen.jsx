@@ -41,8 +41,9 @@ export function LoadingScreen() {
 
       if (elapsed >= duration) {
         clearInterval(progressInterval)
-        // Small delay before transitioning to result
-        setTimeout(() => setScreen('result'), 300)
+        // Income portfolios skip the result screen
+        const nextScreen = currentPortfolio.type === 'income' ? 'confirm-update' : 'result'
+        setTimeout(() => setScreen(nextScreen), 300)
       }
     }, 16) // ~60fps
 

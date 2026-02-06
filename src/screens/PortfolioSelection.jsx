@@ -26,6 +26,24 @@ const riskProfileData = {
     returnRange: '8%–10% return',
     riskScore: '9/10 Risk',
   },
+  'dynamic-bond': {
+    title: 'Dynamic Bond',
+    description: 'Actively managed bonds that adapt to market conditions for higher returns.',
+    returnRange: '4%–6% return',
+    riskScore: '3/10 Risk',
+  },
+  'core-bond': {
+    title: 'Core Bond',
+    description: 'Diversified investment-grade bonds for stable, predictable income.',
+    returnRange: '3%–5% return',
+    riskScore: '2/10 Risk',
+  },
+  'money-market': {
+    title: 'Money Market',
+    description: 'Ultra-safe short-term securities with high liquidity and minimal risk.',
+    returnRange: '2%–4% return',
+    riskScore: '1/10 Risk',
+  },
 }
 
 const portfolios = {
