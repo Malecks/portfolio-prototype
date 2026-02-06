@@ -6,6 +6,7 @@ import { PortfolioSelection } from './screens/PortfolioSelection'
 import { UpdateRiskProfile } from './screens/UpdateRiskProfile'
 import { PortfolioComparison } from './screens/PortfolioComparison'
 import { SummitIneligible } from './screens/SummitIneligible'
+import { AboutIncome } from './screens/AboutIncome'
 import { IncomeSelection } from './screens/IncomeSelection'
 import { GoalScreen } from './screens/GoalScreen'
 import { TimelineScreen } from './screens/TimelineScreen'
@@ -25,6 +26,7 @@ function AppContent() {
     'update-risk-profile': UpdateRiskProfile,
     'portfolio-comparison': PortfolioComparison,
     'summit-ineligible': SummitIneligible,
+    'about-income': AboutIncome,
     'income-selection': IncomeSelection,
     goal: GoalScreen,
     timeline: TimelineScreen,

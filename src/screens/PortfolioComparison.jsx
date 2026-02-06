@@ -7,10 +7,12 @@ const portfolioData = {
   summit: {
     id: 'summit',
     title: 'Summit',
+    emoji: '🏔️',
+    heroTitle: 'Upgrade to Summit',
     projection: '+$129K',
     allocation: [
-      { label: 'Private markets', percentage: 30, color: '#1a1a1a' },
-      { label: 'Stocks', percentage: 70, color: '#e5e5e5' },
+      { label: 'Stocks', percentage: 70, color: '#6B8DD6' },
+      { label: 'Private markets', percentage: 30, color: '#E8925B' },
     ],
     features: [
       {
@@ -34,11 +36,13 @@ const portfolioData = {
   classic: {
     id: 'classic',
     title: 'Classic',
+    emoji: '🥧',
+    heroTitle: 'Switch to Classic',
     projection: '+$89K',
     allocation: [
-      { label: 'Stocks', percentage: 60, color: '#1a1a1a' },
-      { label: 'Bonds', percentage: 30, color: '#a3a3a3' },
-      { label: 'Cash', percentage: 10, color: '#e5e5e5' },
+      { label: 'Stocks', percentage: 60, color: '#6B8DD6' },
+      { label: 'Bonds', percentage: 30, color: '#4CAF50' },
+      { label: 'Cash', percentage: 10, color: '#9B7ED9' },
     ],
     features: [
       {
@@ -63,16 +67,16 @@ const portfolioData = {
 
 function TrendIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M23 6l-9.5 9.5-5-5L1 18" />
-      <path d="M17 6h6v6" />
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+      <polyline points="16 7 22 7 22 13" />
     </svg>
   )
 }
 
 function LockIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
     </svg>
@@ -81,7 +85,7 @@ function LockIcon() {
 
 function PersonIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>
@@ -90,7 +94,7 @@ function PersonIcon() {
 
 function BalanceIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 3v18" />
       <path d="M5 6l7-3 7 3" />
       <path d="M5 6v6a7 7 0 0 0 7 7 7 7 0 0 0 7-7V6" />
@@ -108,13 +112,6 @@ const iconComponents = {
 function GrowthChart({ projection }) {
   return (
     <div className="relative h-48 mb-4">
-      {/* Placeholder chart area */}
-      <div
-        className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-32 rounded-2xl"
-        style={{ backgroundColor: 'var(--color-surface-sunken)' }}
-      />
-
-      {/* Growth curve */}
       <svg
         className="absolute inset-0 w-full h-full"
         viewBox="0 0 300 150"
@@ -159,7 +156,6 @@ function GrowthChart({ projection }) {
 function AllocationBar({ allocation }) {
   return (
     <div className="mb-3">
-      {/* Bar */}
       <div className="h-3 rounded-full overflow-hidden flex mb-2">
         {allocation.map((item, i) => (
           <div
@@ -171,8 +167,6 @@ function AllocationBar({ allocation }) {
           />
         ))}
       </div>
-
-      {/* Legend */}
       <div className="flex flex-wrap gap-x-4 gap-y-1">
         {allocation.map((item, i) => (
           <div key={i} className="flex items-center gap-2">
@@ -223,7 +217,7 @@ function FeatureItem({ icon, title, description }) {
   return (
     <div className="flex gap-4">
       <div
-        className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+        className="w-10 h-10 flex items-center justify-center flex-shrink-0"
         style={{ color: 'var(--color-ink)' }}
       >
         <IconComponent />
@@ -263,7 +257,24 @@ export function PortfolioComparison() {
 
   return (
     <div className="flex flex-col min-h-full" style={{ backgroundColor: 'var(--color-surface)' }}>
-      <Header title="" onBack={() => setScreen('portfolio-selection')} onClose={reset} />
+      {/* Hero area with overlaid header */}
+      <div
+        className="relative"
+        style={{
+          background: 'linear-gradient(to bottom, oklch(94% 0.01 280), oklch(96% 0.008 85), var(--color-surface))',
+        }}
+      >
+        <Header title="" onBack={() => setScreen('portfolio-selection')} onClose={reset} transparent />
+        <h1
+          className="text-[24px] font-bold tracking-[-0.02em] leading-tight text-center mb-2"
+          style={{ color: 'var(--color-ink)' }}
+        >
+          {targetData.heroTitle}
+        </h1>
+        <div className="flex items-center justify-center py-6">
+          <span className="text-[72px]">{targetData.emoji}</span>
+        </div>
+      </div>
 
       <div className="flex-1 px-5 overflow-y-auto">
         {/* Chart section */}
@@ -284,7 +295,7 @@ export function PortfolioComparison() {
         {/* Divider */}
         <div className="h-px mb-6" style={{ backgroundColor: 'var(--color-border)' }} />
 
-        {/* About section - always shows target portfolio info */}
+        {/* About section */}
         <h3
           className="text-[17px] font-bold mb-5"
           style={{ color: 'var(--color-ink)' }}
@@ -309,16 +320,9 @@ export function PortfolioComparison() {
         <Button onClick={handleContinue}>
           {targetData.cta}
         </Button>
-        <button
-          className="w-full py-3.5 rounded-2xl font-semibold text-[15px] transition-all duration-200 active:scale-[0.98]"
-          style={{
-            backgroundColor: 'transparent',
-            color: 'var(--color-ink)',
-            border: '1px solid var(--color-border)',
-          }}
-        >
+        <Button variant="secondary" onClick={() => {}}>
           Learn more
-        </button>
+        </Button>
       </div>
     </div>
   )

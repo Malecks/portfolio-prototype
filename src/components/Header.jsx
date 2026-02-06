@@ -1,8 +1,8 @@
-export function Header({ title, onBack, onClose }) {
+export function Header({ title, onBack, onClose, transparent = false }) {
   return (
     <div
       className="sticky top-0 z-10 flex items-center justify-between px-4 py-3"
-      style={{
+      style={transparent ? {} : {
         backgroundColor: 'var(--color-surface)',
         borderBottom: '1px solid var(--color-border)',
       }}
